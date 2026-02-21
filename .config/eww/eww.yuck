@@ -1,11 +1,11 @@
 ;; Variables
-(defvar show_bat false)
+(defvar show_bat true)
 
 (defpoll time_hour :interval "1s" "date +%H")
 (defpoll time_minute :interval "1s" "date +%M") 
 (defpoll time_second :interval "1s" "date +%S")
 (defpoll volume-level :interval "200ms" "pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%'")
-(defpoll battery-level :interval "30s" "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 0")
+(defpoll battery-level :interval "30s" "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 || echo 0")
 
 (defpoll song_title :interval "1s" 
 	"playerctl -p spotify,vlc,firefox,%any metadata title 2>/dev/null | tr '[:lower:]' '[:upper:]' | fold -w1 | head -28 || echo ''"
