@@ -9,6 +9,7 @@
 input {
 	tablet {
 		map-to-output "DP-2"
+		calibration-matrix 0.0 -1.0 1.0 1.0 0.0 0.0
 	}
 
     keyboard {
