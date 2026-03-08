@@ -65,6 +65,8 @@ alias vim=nvim
 alias rd=radare2
 alias e=exit
 alias q=exit
+alias ':e'=exit
+alias ':q'=exit
 
 alias gs='git status -s'
 alias ga='git add'
