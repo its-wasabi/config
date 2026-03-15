@@ -131,6 +131,7 @@ bindkey -r '^X'
 setopt PROMPT_SUBST
 setopt EXTENDED_GLOB
 
+MARKER_COLOR="#444444"
 TIME_COLOR="cyan"
 SHLVL_COLOR="blue"
 SSH_COLOR="#00FF00"
@@ -200,21 +201,21 @@ cargo_info() {
 }
 
 prompt_profile_main() {
-	PROMPT='%B$(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱❰%~❱%F{blue} ';
-	RPROMPT=''
-	PS2='%B%F{$PROMPT_COLOR}❱%F{blue} '
+	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱❰%~❱%E%F{blue} ";
+	RPROMPT=""
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{#181818}%F{blue} "
 }
 
 prompt_profile_full() {
-	PROMPT='%B$(root_marker)%F{$PROMPT_COLOR}❰%~❱%F{blue} ';
-	RPROMPT='%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱'
-	PS2='%B%F{$PROMPT_COLOR}❱%F{blue} '
+	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} $(root_marker)%F{$PROMPT_COLOR}❰%~❱%E%F{blue} ";
+	RPROMPT="%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱"
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{#181818}%F{blue} "
 }
 
 prompt_profile_min() {
-	PROMPT="%B%F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
-	RPROMPT=''
-	PS2='>'
+	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} %F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
+	RPROMPT=""
+	PS2=">"
 }
 
 prompt_apply() {
