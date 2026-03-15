@@ -110,7 +110,7 @@ zle -N zle-line-init
 
 zle-keymap-select() {
 	case $KEYMAP in
-		vicmd) PROMPT_VIMODE="%F{yellow}❮N❯%f " ;;
+		vicmd) PROMPT_VIMODE="%F{yellow}❮N❯%f" ;;
 		viins|main) PROMPT_VIMODE="" ;;
 	esac
 	zle reset-prompt
@@ -182,36 +182,43 @@ git_info() {
 }
 
 cargo_info() {
-	local cargo_toml;
-	cargo_toml=$(cargo locate-project --workspace --message-format=plain 2>/dev/null) || return;
-	
-	local name version key value;
-	while IFS='=' read -r key value; do
-		key="${${key##[[:space:]]#}%%[[:space:]]#}";
-		value="${${${value//\"/}##[[:space:]]#}%%[[:space:]]#}";
-		case $key in
-			name)    name=$value ;;
-			version) version=$value ;;
-		esac
-	done < "$cargo_toml";
-	
-	[[ -n $name ]] || return;
-	echo -n "%{%F{$PROMPT_COLOR}%}${SEPARATOR}%{%F{$CARGO_COLOR}%}$name";
-	[[ -n $version ]] && echo -n "-$version";
-	echo "%{%f%}";
+	if [[ $PWD != $_CARGO_LAST_PWD ]]; then
+		local cargo_toml name version key value info=""
+
+		cargo_toml=$(cargo locate-project --message-format=plain 2>/dev/null)
+		if [[ $? -eq 0 ]]; then
+			while IFS='=' read -r key value; do
+				key="${${key##[[:space:]]#}%%[[:space:]]#}"
+				value="${${${value//\"/}##[[:space:]]#}%%[[:space:]]#}"
+				case $key in
+					name)    name=$value ;;
+					version) version=$value ;;
+				esac
+			done < "$cargo_toml"
+
+			# if no [package] name, use the directory name
+			[[ -z $name ]] && name="${cargo_toml:h:t}"
+
+			info="%{%F{$PROMPT_COLOR}%}${SEPARATOR}%{%F{$CARGO_COLOR}%}$name"
+			[[ -n $version ]] && info+="-$version"
+			info+="%{%f%}"
+		fi
+
+		_CARGO_LAST_PWD=$PWD
+		_CARGO_INFO=$info
+	fi
+
+	echo -n "$_CARGO_INFO"
 }
 
-prompt_clear() {
-	echo -n "%{%k%f%}";
-}
 
-prompt_begining() {
-	prompt_clear;	
-	echo -n "%{%B%F{$MARKER_COLOR}%}%{%K{$MARKER_COLOR}%F{$PROMPT_COLOR}%}⏺%{%K{$BACKGROUND_COLOR}%F{$MARKER_COLOR}%}";
+prompt_beginning() {
+	echo -n "%{%B%F{$MARKER_COLOR}%}%{%K{$MARKER_COLOR}%F{$PROMPT_COLOR}%}%{%K{$BACKGROUND_COLOR}%F{$MARKER_COLOR}%}";
 }
 
 prompt_profile_main() {
-	PROMPT="$(prompt_begining) $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱❰%~❱%F{blue} ";
+	PROMPT="%k%f$(prompt_beginning) - $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱%F{$MARKER_COLOR} %F{$PROMPT_COLOR}❰%~❱%F{blue} ";
+	RPROMPT=""
 	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
 
@@ -262,9 +269,9 @@ preexec() {
 }
 
 precmd() {
-	prompt_apply;
-
 	EXIT_CODE=$?
+
+	prompt_apply;
 
 	CMD_END=${EPOCHREALTIME:-$(date +%s.%N)}
 	if [[ -z $CMD_START ]]; then
