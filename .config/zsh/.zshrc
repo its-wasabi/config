@@ -131,6 +131,7 @@ bindkey -r '^X'
 setopt PROMPT_SUBST
 setopt EXTENDED_GLOB
 
+BACKGROUND_COLOR="#181818"
 MARKER_COLOR="#444444"
 TIME_COLOR="cyan"
 SHLVL_COLOR="blue"
@@ -142,7 +143,7 @@ SEPARATOR="]["
 PROMPT_COLOR="magenta"
 
 root_marker() {
-  (( $EUID == 0 )) && echo "%{%F{red}%}❰ROOT❱%{%f%} "
+  (( $EUID == 0 )) && echo -n "%{%F{red}%}❰ROOT❱%{%f%} "
 }
 
 command_status() {
@@ -154,7 +155,7 @@ command_status() {
 		echo -n "%{%F{red}%}$EXIT_CODE%{%f%}"
 	fi
 	(( CMD_TIME > 0.5 )) && \
-		echo "%{%F{$PROMPT_COLOR}%}~%{%F{$TIME_COLOR}%}${CMD_TIME}s%{%f%}";
+		echo -n "%{%F{$PROMPT_COLOR}%}~%{%F{$TIME_COLOR}%}${CMD_TIME}s%{%f%}";
 }
 
 shell_level() {
@@ -200,20 +201,29 @@ cargo_info() {
 	echo "%{%f%}";
 }
 
-prompt_profile_main() {
-	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱❰%~❱%E%F{blue} ";
-	RPROMPT=""
-	PS2="%k%f%B%F{$MARKER_COLOR}█%K{#181818}%F{blue} "
+prompt_clear() {
+	echo -n "%{%k%f%}";
 }
 
+prompt_begining() {
+	prompt_clear;	
+	echo -n "%{%B%F{$MARKER_COLOR}%}%{%K{$MARKER_COLOR}%F{$PROMPT_COLOR}%}⏺%{%K{$BACKGROUND_COLOR}%F{$MARKER_COLOR}%}";
+}
+
+prompt_profile_main() {
+	PROMPT="$(prompt_begining) $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱❰%~❱%F{blue} ";
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
+}
+
+
 prompt_profile_full() {
-	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} $(root_marker)%F{$PROMPT_COLOR}❰%~❱%E%F{blue} ";
+	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR} $(root_marker)%F{$PROMPT_COLOR}❰%~❱%F{blue} ";
 	RPROMPT="%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱"
-	PS2="%k%f%B%F{$MARKER_COLOR}█%K{#181818}%F{blue} "
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
 
 prompt_profile_min() {
-	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{#181818} %F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
+	PROMPT="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR} %F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
 	RPROMPT=""
 	PS2=">"
 }
