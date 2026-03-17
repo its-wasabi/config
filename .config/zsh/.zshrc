@@ -218,21 +218,21 @@ prompt_beginning() {
 
 prompt_profile_main() {
 	PROMPT="%k%f%B$(prompt_beginning) - $(root_marker)%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱%F{$MARKER_COLOR} %F{$PROMPT_COLOR}❰%~❱%F{blue} ";
-	RPROMPT=""
-	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
+	RPROMPT="%F{$PROMPT_COLOR}%f"
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
 
 
 prompt_profile_full() {
 	PROMPT="%k%f%B$(prompt_beginning) - $(root_marker)%F{$PROMPT_COLOR}❰%~❱%F{blue} ";
 	RPROMPT="%F{$PROMPT_COLOR}❰$(command_status)$(shell_level)$(ssh_info)$(git_info)$(cargo_info)%F{$PROMPT_COLOR}❱"
-	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
 
 prompt_profile_min() {
 	PROMPT="%k%f%B$(prompt_beginning) - %F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
 	RPROMPT=""
-	PS2=">"
+	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
 
 prompt_apply() {
