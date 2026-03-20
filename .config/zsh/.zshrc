@@ -230,7 +230,7 @@ prompt_profile_full() {
 }
 
 prompt_profile_min() {
-	PROMPT="%k%f%B$(prompt_beginning) - %F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
+	PROMPT="%f%B%F{$PROMPT_COLOR}<%F{blue}%n%F{$PROMPT_COLOR}@%F{blue}%m%F{$PROMPT_COLOR}><%F{blue}%~%F{$PROMPT_COLOR}>%F{blue} "
 	RPROMPT=""
 	PS2="%k%f%B%F{$MARKER_COLOR}█%K{$BACKGROUND_COLOR}%F{blue} "
 }
