@@ -261,7 +261,7 @@ prompt_switch() {
 zle -N prompt_switch
 bindkey '^@' prompt_switch;
 
-typeset CMD_TIME CMD_START CMD_END
+typeset CMD_TIME=0 CMD_END CMD_START
 
 preexec() {
 	echo -ne '\e[0m'
@@ -271,8 +271,6 @@ preexec() {
 precmd() {
 	EXIT_CODE=$?
 
-	prompt_apply;
-
 	CMD_END=${EPOCHREALTIME:-$(date +%s.%N)}
 	if [[ -z $CMD_START ]]; then
 		CMD_START=$CMD_END
@@ -281,6 +279,8 @@ precmd() {
 		CMD_TIME=$(awk -v start="$CMD_START" -v end="$CMD_END" 'BEGIN{printf "%.3f", end-start}')
 		CMD_START=$CMD_END
 	fi
+
+	prompt_apply;
 }
 
 zle-line-finish() {
