@@ -17,7 +17,7 @@ c.content.blocking.method = "both"
 c.hints.auto_follow = "unique-match"
 
 c.editor.command = ['kitty', 'nvim', '{file}', '+normal {line}G{column0}l']
-c.fileselect.handler = "default" 
+c.fileselect.handler = "default"
 
 # Global
 c.backend = "webengine"  # Backend to use to display websites.
@@ -41,6 +41,8 @@ config.set("tabs.new_position.related", "next")
 config.set("tabs.new_position.unrelated", "last")
 # logically stack tabs (if parent tab closes stacked tabs also)
 config.set("tabs.new_position.stacking", False)
+
+c.downloads.open_dispatcher = "none"
 
 ###############
 # Appearance #

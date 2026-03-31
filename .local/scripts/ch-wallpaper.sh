@@ -34,7 +34,7 @@ echo "$WALLPAPER_NAME" > "$LAST_WALLPAPER_FILE"
 # Notify and set wallpaper
 # hyprctl notify -1 2000 "rgb(ffffff)" "fontsize:14 $WALLPAPER_NAME" >> /dev/null
 
-swww img "$WALLPAPER_PATH/$WALLPAPER_NAME" \
+awww img "$WALLPAPER_PATH/$WALLPAPER_NAME" \
 	--transition-type=simple \
 	--transition-step=25 \
 	--transition-fps=30 || {

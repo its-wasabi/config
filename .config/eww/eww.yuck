@@ -106,15 +106,15 @@
 )
 
 ;; Window definition
-(defwindow bar :monitor 0
+(defwindow bar :monitor 1
 		   :geometry (geometry :x "0px"
 				           :y "0px" 
 					     :width "20px"
 					     :height "100%"
-					     :anchor "right center"
+					     :anchor "left center"
 				 )
 		   :stacking "fg"
-		   :reserve (struts :distance "40px" :side "right")
+		   :reserve (struts :distance "40px" :side "left")
 		   :windowtype "dock"
 		   :wm-ignore false
 		   :exclusive true
