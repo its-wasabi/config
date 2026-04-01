@@ -94,11 +94,19 @@ command_not_found_handler() {
 bindkey -v
 KEYTIMEOUT=1
 
-bindkey '^?'    backward-delete-char
-bindkey '^H'    backward-delete-char
-bindkey '^[[3~' delete-char
-bindkey -r '^[x'
-bindkey -r '^X'
+_zle_git_add() {
+  LBUFFER+="git add "
+}
+zle -N _zle_git_add
+
+_zle_git_commit() {
+  LBUFFER+='git commit -m "'
+  RBUFFER='"'$RBUFFER   # cursor lands between the quotes
+}
+zle -N _zle_git_commit
+
+bindkey -M viins '^x^a' _zle_git_add       
+bindkey -M viins '^x^m' _zle_git_commit  
 
 zle-line-init() {
   zle -K viins
