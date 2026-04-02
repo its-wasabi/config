@@ -2,6 +2,9 @@
 
 export MANPAGER='nvim +Man!'
 
+export XCURSOR_THEME=TetoCursor
+export XCURSOR_SIZE=24
+
 [[ -f "$HOME/.ghcup/env" ]] && source "$HOME/.ghcup/env"
 
 unsetopt BEEP
