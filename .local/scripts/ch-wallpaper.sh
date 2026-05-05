@@ -6,7 +6,7 @@ notify() {
 	notify-send "Failed to change wallpaper";
 }
 
-WALLPAPER_PATH="$HOME/.local/wallpapers"
+WALLPAPER_PATH="$HOME/.local/wallpapers/"
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAST_WALLPAPER_FILE="$CACHE_DIR/last_wallpaper.txt"
 
@@ -31,13 +31,14 @@ WALLPAPER_NAME=$(echo "$MATCHING_WALLPAPERS" | shuf -n 1)
 # Save the new wallpaper name
 echo "$WALLPAPER_NAME" > "$LAST_WALLPAPER_FILE"
 
-# Notify and set wallpaper
-# hyprctl notify -1 2000 "rgb(ffffff)" "fontsize:14 $WALLPAPER_NAME" >> /dev/null
-
 awww img "$WALLPAPER_PATH/$WALLPAPER_NAME" \
 	--transition-type=simple \
 	--transition-step=25 \
 	--transition-fps=30 || {
-		notify;
+		notify-send "ERR";
 		exit 1;
 	}
+
+# Notify and set wallpaper
+# hyprctl notify -1 2000 "rgb(ffffff)" "fontsize:14 $WALLPAPER_NAME" >> /dev/null
+notify-send "$WALLPAPER_NAME"
