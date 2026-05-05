@@ -2,9 +2,6 @@
 
 export MANPAGER='nvim +Man!'
 
-export XCURSOR_THEME=TetoCursor
-export XCURSOR_SIZE=24
-
 [[ -f "$HOME/.ghcup/env" ]] && source "$HOME/.ghcup/env"
 
 unsetopt BEEP
@@ -29,7 +26,7 @@ zmodload zsh/datetime
 zstyle :compinstall filename "$HOME/.config/zsh/.zshrc"
 autoload -Uz compinit && compinit
 
-zstyle ':completion:*'              menu yes 
+zstyle ':completion:*'              menu select=2 
 zstyle ":completion:*"				group-name ''
 zstyle ':completion:*'				list-colors 'di=34:ln=36:ex=32:fi=34'
 zstyle ':completion:*'              special-dirs true
