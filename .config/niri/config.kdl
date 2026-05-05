@@ -7,6 +7,9 @@
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
 cursor {
+	hide-when-typing
+	hide-after-inactive-ms 500
+
 	// xcursor-theme "TetoCursor"
 	xcursor-theme "oreo_spark_lite_cursors"
 	xcursor-size 20
@@ -14,7 +17,7 @@ cursor {
 
 input {
 	tablet {
-		map-to-output "DP-2"
+		map-to-output "DP-2" // "HDMI-A-1" // "DP-2"
 		calibration-matrix 0.0 -1.0 1.0 1.0 0.0 0.0
 	}
 
@@ -48,11 +51,12 @@ input {
     }
 
 	focus-follows-mouse
+
     mouse {
         // off
         // natural-scroll
         accel-speed 1.0
-        // accel-profile "flat"
+        accel-profile "flat"
         // scroll-method "no-scroll"
     }
 
@@ -89,6 +93,7 @@ gestures {
 // Remember to uncomment the node by removing "/-"!
 output "DP-2" {
 	scale 1.0
+    variable-refresh-rate on-demand=true
 }
 
 output "HDMI-A-1" {
@@ -122,11 +127,16 @@ output "HDMI-A-1" {
     position x=-1680 y=0
 }
 
+// Make the backdrop light.
+overview {
+    backdrop-color "#101010"
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout { // Set gaps around windows in logical pixels.
-    gaps 2
+    gaps 0
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -171,7 +181,8 @@ layout { // Set gaps around windows in logical pixels.
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        // off
+
+        off
 
         // How many logical pixels the ring extends out from the windows.
         width 2
@@ -182,7 +193,7 @@ layout { // Set gaps around windows in logical pixels.
         // - CSS-like notation: "rgb(255, 127, 0)", rgba(), hsl() and a few others.
 
         // Color of the ring on the active monitor.
-        active-color "#ff02c0"
+        active-color "#ff0200"
 
         // Color of the ring on inactive monitors.
         //
@@ -210,14 +221,15 @@ layout { // Set gaps around windows in logical pixels.
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
 
-        width 12
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        // off
+
+        width 2
+        active-color "#ffffffff"
+        inactive-color "#00000000"
 
         // Color of the border around windows that request your attention.
-        urgent-color "#9b0000"
+        urgent-color "#ff0000ff"
 
         // Gradients can use a few different interpolation color spaces.
         // For example, this is a pastel rainbow gradient via in="oklch longer hue".
@@ -270,11 +282,15 @@ layout { // Set gaps around windows in logical pixels.
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        // left 64
-        // right 64
-        // top 64
-        // bottom 64
+        left 0
+        right 0
+        top 0
+        bottom 0
     }
+}
+
+recent-windows {
+	off
 }
 
 // Add lines like this to spawn processes at startup.
@@ -285,7 +301,7 @@ layout { // Set gaps around windows in logical pixels.
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "eww" "open" "bar"
 spawn-at-startup "awww-daemon"
-spawn-at-startup "mako --font 'Monocraft 12px' --background-color '#000000' --text-color '#FFFFFF' --border-color '#ff02c0'"
+spawn-at-startup "mako" "--font" "Monocraft 12px" "--background-color" "#000000" "--text-color" "#FFFFFF" "--border-color" "#ff02c0"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -314,46 +330,11 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // https://yalter.github.io/niri/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
-    // off
+	off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    slowdown 0.8
+    slowdown 1.0
 }
-
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Window-Rules
-
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
-window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
-}
-
-// Example: block out two password managers from screen capture.
-// (This example rule is commented out with a "/-" in front.)
-// /-window-rule {
-//     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-//     match app-id=r#"^org\.gnome\.World\.Secrets$"#
-//
-//     block-out-from "screen-capture"
-//
-//     // Use this instead if you want them visible on third-party screenshot tools.
-//     // block-out-from "screencast"
-// }
 
 include "binds.kdl"
 include "window-rules.kdl"

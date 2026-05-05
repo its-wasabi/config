@@ -44,6 +44,7 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     Mod+Shift+E  { spawn "~/.local/scripts/ch-wallpaper.sh"; }
+    Mod+Shift+G  { spawn "~/.local/scripts/ch-wallpaper-second.sh"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -218,8 +219,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+D       { toggle-window-floating; }
+    Mod+Shift+D { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
