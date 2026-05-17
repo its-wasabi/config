@@ -301,7 +301,7 @@ recent-windows {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "eww" "open" "bar"
 spawn-at-startup "awww-daemon"
-spawn-at-startup "mako" "--font" "Monocraft 12px" "--background-color" "#000000" "--text-color" "#FFFFFF" "--border-color" "#ff02c0"
+spawn-at-startup "mako" "--font" "Monocraft 12px" "--background-color" "#000000" "--text-color" "#FFFFFF" "--border-color" "#ffffff"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
