@@ -1,4 +1,3 @@
-// NOTE: Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
@@ -22,19 +21,9 @@ window-rule {
 
 window-rule {
     match app-id="^kitty$"
+	match app-id="^flowstate$"
 
     background-effect {
         blur true
     }
 }
-
-// EXAMPLE: Block out from screenshot
-// window-rule {
-//     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
-//     match app-id=r#"^org\.gnome\.World\.Secrets$"#
-//
-//     block-out-from "screen-capture"
-//
-//     // Use this instead if you want them visible on third-party screenshot tools.
-//     // block-out-from "screencast"
-// }

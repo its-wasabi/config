@@ -44,7 +44,6 @@ binds {
     Mod+Q repeat=false { close-window; }
 
     Mod+Shift+E  { spawn "~/.local/scripts/ch-wallpaper.sh"; }
-    Mod+Shift+G  { spawn "~/.local/scripts/ch-wallpaper-second.sh"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
