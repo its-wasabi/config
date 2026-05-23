@@ -1,20 +1,22 @@
 .main-bar {
   color: #fff;
   background-color: #000;
-  padding: 6px 0px;
-  font-size: 12px;
-  font-weight: 200;
+
   font-family: "Monocraft" ,"FiraCode", monospace;
+  font-size: 12px;
+  font-weight: 400;
+
+  padding: 6px 0px;
 }
 
 .song-container {
-  font-size: 10px;
-  font-weight: 100;
+  font-size: 12px;
 }
 
-.vol-bar>trough {
-  border-radius: 0;
+.vol-bar > trough {
   border: none;
+
+  border-radius: 0;
   padding: 0;
   margin: 0;
 

@@ -1,5 +1,5 @@
 ;; Variables
-(defvar show_bat true)
+(defvar show_bat false)
 
 (defpoll time_hour :interval "1s" "date +%H")
 (defpoll time_minute :interval "1s" "date +%M") 
@@ -91,7 +91,7 @@
 	     :space-evenly false
 	     :spacing 12
 		(box :orientation "v"
-			:visible {battery-level <= 80 && show_bat}
+			:visible { battery-level <= 80 && show_bat }
 			(bat)
 		)
 		(time)
