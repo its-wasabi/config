@@ -1,38 +1,60 @@
-from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
-from qutebrowser.config.config import ConfigContainer  # noqa: F401
-import os
-
 config.load_autoconfig(True)
 
-c.fonts.default_family = "Monocraft"
-c.fonts.default_size = "11px"
+c.fonts.default_size = "8pt"
+
+UI_FONT = "8pt Monocraft"
+
+c.fonts.tabs.selected = UI_FONT
+c.fonts.tabs.unselected = UI_FONT
+c.fonts.statusbar = UI_FONT
+c.fonts.prompts = UI_FONT
+c.fonts.completion.entry = UI_FONT
+c.fonts.completion.category = UI_FONT
+c.fonts.messages.info = UI_FONT
+c.fonts.messages.warning = UI_FONT
+c.fonts.messages.error = UI_FONT
+c.fonts.hints = UI_FONT
+
+WEB_FONT = "Iosevka Code"
+
+c.fonts.web.family.standard = WEB_FONT
+c.fonts.web.family.fixed = WEB_FONT
+c.fonts.web.family.serif = WEB_FONT
+c.fonts.web.family.sans_serif = WEB_FONT
 
 config.bind('<Ctrl-Shift-I>', 'devtools')
-config.set("content.local_content_can_access_file_urls", True)
-config.set("content.local_content_can_access_remote_urls", True)
+
+c.content.local_content_can_access_file_urls = False
+c.content.local_content_can_access_remote_urls = False
+
 with config.pattern('http://localhost:3000') as p:
     p.content.cookies.accept = 'all'
 
 c.content.blocking.method = "both"
 c.hints.auto_follow = "unique-match"
 
-c.editor.command = ['kitty', 'nvim', '{file}', '+normal {line}G{column0}l']
+c.content.cookies.accept = "no-3rdparty"
+with config.pattern("https://*.google.com/*") as p:
+    p.content.cookies.accept = "all"
+
+with config.pattern("https://accounts.google.com/*") as p:
+    p.content.cookies.accept = "all"
+
 c.fileselect.handler = "default"
 
-# Global
-c.backend = "webengine"  # Backend to use to display websites.
-c.auto_save.session = True  # save session automatically
-c.session.lazy_restore = True  # restore session automatically
+c.backend = "webengine"
+c.auto_save.session = True
+c.session.lazy_restore = True
+
 # Time interval (in milliseconds) between auto-saves of config/cookies/etc.
 c.auto_save.interval = 15000
 c.downloads.location.prompt = True
-# path to default downloads directory
 c.downloads.location.directory = "~/Downloads/"
 c.completion.web_history.max_items = 10000
-c.content.cookies.accept = "no-3rdparty"
+
+
 # Tabs
-# show tabs when there is multiple (hide if only one)
-config.set("tabs.show", "multiple")
+config.set("tabs.show", "always")
 config.set("tabs.background", False)  # focus on new tabs
 c.tabs.select_on_remove = "prev"
 # open tabs right under related tabs
@@ -50,11 +72,13 @@ c.downloads.open_dispatcher = "none"
 # Global
 c.colors.webpage.preferred_color_scheme = "dark"
 c.scrolling.smooth = True
-c.completion.height = "30%"
+c.completion.height = "18%"
+
 # Tabs
-c.tabs.position = "right"
-c.tabs.width = 160
-config.set("tabs.title.format", "{private}{audio}{index} {current_title}")
+c.tabs.position = "left"
+c.tabs.width = 180
+
+config.set("tabs.title.format", "{index}:{current_title}")
 config.set("tabs.title.format_pinned", "{current_title}")
 
 ############
@@ -63,16 +87,19 @@ config.set("tabs.title.format_pinned", "{current_title}")
 # Global
 config.bind("<Ctrl-d>", "cmd-run-with-count 15 scroll down")
 config.bind("<Ctrl-u>", "cmd-run-with-count 15 scroll up")
+
 config.bind("<Alt-h>", "back")
 config.bind("<Alt-l>", "forward")
-config.bind("<Alt-e>", "edit-text")  # , mode="insert")
+
 c.aliases = {
     "w": "session-save",
+    "wa": "session-save",
     "q": "close",
     "qa": "quit",
     "wq": "quit --save",
     "wqa": "quit --save",
 }
+
 # Tabs
 config.bind("J", "tab-next")
 config.bind("K", "tab-prev")
@@ -93,16 +120,13 @@ c.url.searchengines = {
     "go": "https://www.google.com/search?q={}",
     "gi": "https://github.com/search?q={}",
     "yt": "https://www.youtube.com/results?search_query={}",
-    "wi": "https://en.wikipedia.org/wiki/{}",
-    "phi": "https://www.phind.com/search?q={}"
 }
 
-c.changelog_after_upgrade = "patch"  # minor major
+c.changelog_after_upgrade = "patch"
 
 c.colors.completion.category.bg = "#000000"
-# TODO: consider changing that color
-c.colors.completion.category.border.top = "#808"
-c.colors.completion.category.border.bottom = "#f0f"
+c.colors.completion.category.border.top = "#ffffff"
+c.colors.completion.category.border.bottom = "#ffffff"
 c.colors.completion.category.fg = "#ffffff"
 c.colors.completion.even.bg = "#000000"
 c.colors.completion.odd.bg = "#101010"
@@ -326,7 +350,7 @@ c.colors.tabs.selected.odd.fg = "#000000"
 # - lightness-cielab: Modify colors by converting them to CIELAB color space and inverting the L value. Not available with Qt < 5.14.
 # - lightness-hsl: Modify colors by converting them to the HSL color space and inverting the lightness (i.e. the "L" in HSL).
 # - brightness-rgb: Modify colors by subtracting each of r, g, and b from their maximum value.
-# c.colors.webpage.darkmode.algorithm = 'lightness-cielab'
+c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
 
 # Contrast for dark mode. This only has an effect when
 # `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or
@@ -342,7 +366,7 @@ c.colors.tabs.selected.odd.fg = "#000000"
 # `colors.webpage.darkmode.policy.images` to `never`.  - "With selective
 # image inversion": qutebrowser default settings.
 # Type: Bool
-c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 
 # Which images to apply dark mode to.
 # Type: String
@@ -351,4 +375,4 @@ c.colors.webpage.darkmode.enabled = False
 # - never: Never apply dark mode filter to any images.
 # - smart: Apply dark mode based on image content. Not available with Qt 5.15.0.
 # - smart-simple: On QtWebEngine 6.6, use a simpler algorithm for smart mode (based on numbers of colors and transparency), rather than an ML-based model. Same as 'smart' on older QtWebEnigne versions.
-c.colors.webpage.darkmode.policy.images = "never"
+c.colors.webpage.darkmode.policy.images = "smart"

@@ -10,24 +10,11 @@ settings:
     https://chatgpt.com: access-paste
     https://claude.ai: access-paste
     https://colordesigner.io: access-paste
+    https://gemini.google.com: access-paste
     https://github.com: access-paste
-    https://github.dev: access-paste
-    https://next.ossinsight.io: access-paste
     https://rustup.rs: access-paste
-    https://www.mermaidchart.com: access-paste
     https://www.perplexity.ai: access-paste
-    https://www.phind.com: access-paste
-  content.notifications.enabled:
-    https://www.perplexity.ai: true
   fonts.default_family:
     global: Monocraft
   fonts.default_size:
     global: 11px
-  fonts.web.family.fixed:
-    global: Monocraft
-  fonts.web.family.sans_serif:
-    global: Monocraft
-  fonts.web.family.serif:
-    global: Monocraft
-  fonts.web.family.standard:
-    global: Monocraft
