@@ -1,6 +1,5 @@
 vsync = false
 
-frame = "buttonless"
 no-multigrid = false
 title-hidden = true
 tabs = false
