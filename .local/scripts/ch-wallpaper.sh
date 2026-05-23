@@ -6,7 +6,12 @@ notify() {
 	notify-send "Failed to change wallpaper";
 }
 
-WALLPAPER_PATH="$HOME/.local/wallpapers/"
+if [ "$#" -gt 0 ]; then
+	WALLPAPER_PATH="$HOME/$1"
+else
+	WALLPAPER_PATH="$HOME/.local/wallpapers/"
+fi
+
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
 LAST_WALLPAPER_FILE="$CACHE_DIR/last_wallpaper.txt"
 
