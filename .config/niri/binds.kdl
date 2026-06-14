@@ -43,7 +43,7 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+Shift+E  { spawn "~/.local/scripts/ch-wallpaper.sh"; }
+    Mod+Shift+E  { spawn "~/.local/bin/ch-wallpaper.sh"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -250,7 +250,7 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Ctrl+Shift+Delete { quit; }
-    Mod+Ctrl+Alt+Delete { spawn-sh "~/.local/scripts/shutdown.sh"; }
+    Mod+Ctrl+Alt+Delete { spawn-sh "~/.local/bin/shutdown.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
