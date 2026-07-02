@@ -1,15 +1,15 @@
 binds {
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Q repeat=false { close-window; }
 
     Mod+P { 
 	  spawn "bemenu-run" "-b" "-H" "12" "-B" "1" "-R" "0" "--fn" "FiraCode 12" "-i" "--bdr" "##ffffff" "--tf" "##cb2363" "--tb" "##000000" "--fb" "##000000" "--ff" "##ffffff" "--nb" "##000000" "--hb" "##000000" "--fbb" "##000000" "--sb" "##000000" "--prompt" "run:"; 
     }
 
-    Mod+O { spawn "kitty" "-d" "~"; }
+    Mod+O { spawn "kitty" "-d" "$HOME"; }
     Mod+I { spawn "qutebrowser"; }
-    Mod+U { spawn "vscodium"; }
+    Mod+U { spawn "qalculate-qt"; }
     Mod+Y { spawn "spotify"; }
-    Mod+N { spawn "qalculate-qt"; }
+    Mod+N { spawn "kitty" "--class" "editor" "-d" "$HOME" "-e" "nvim"; }
     Mod+M { spawn "kitty" "-e" "btop"; }
     
 
@@ -41,7 +41,6 @@ binds {
     // or do a four-finger swipe up on a touchpad.
     Mod+Tab repeat=false { toggle-overview; }
 
-    Mod+Q repeat=false { close-window; }
 
     Mod+Shift+E  { spawn "~/.local/bin/ch-wallpaper.sh"; }
 
