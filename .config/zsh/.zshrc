@@ -78,14 +78,6 @@ alias myip='curl -s ifconfig.me; echo'
 alias idk='echo "me too bro me too (T^T)"'
 alias snote='hyprctl notify -1 999999999 "rgb(ffffff)"'
 
-udate() {
-  trap 'echo; return' INT
-  while true; do
-    printf '\r%s' "$(date)"
-    sleep 1
-  done
-}
-
 command_not_found_handler() {
   printf '\e[1;31m❰COMMAND NOT FOUND: \e[38;5;4m%s\e[1;31m❱\e[0m\n' "$1"
   return 127
