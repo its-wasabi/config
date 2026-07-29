@@ -302,12 +302,7 @@ recent-windows {
 // spawn-at-startup "xwayland-satellite" // ERROR: Causes memory leak ig - somehow
 spawn-at-startup "~/.local/bin/nav-bar"
 spawn-at-startup "awww-daemon"
-spawn-at-startup "mako" \
-	"--font" "Monocraft 12px" \
-	"--background-color" "#000000" \
-	"--text-color" "#FFFFFF" \
-	"--border-color" "#ffffff" \
-	"--default-timeout" "3000"
+spawn-at-startup "mako" 
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"

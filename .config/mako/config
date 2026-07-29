@@ -1,0 +1,26 @@
+font=Iosevka Code 12
+layer=overlay
+width=280
+height=100
+text-alignment=left
+default-timeout=5000
+border-size=2
+border-radius=0
+ignore-timeout=1
+padding=4
+markup=1
+actions=1
+max-visible=12
+history=1
+background-color=#000000
+border-color=#ffffff
+text-color=#ffffff
+
+[urgency=low]
+background-color=#000000
+text-color=#ffffff
+
+[urgency=critical]
+background-color=#000000
+text-color=#ff8888
+default-timeout=0
