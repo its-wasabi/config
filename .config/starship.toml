@@ -1,0 +1,175 @@
+add_newline = false
+
+format = """
+[╭─](#444444)([❰](#444444) $shlvl$package\
+$deno$lua$nodejs$bun$python$ruby$rust$swift$aws$buf$c$cpp$conda$pixi$dart$elixier$elm$golang$haskell$java$julia$nim$nix_shell$spack\
+[❱](#444444))$fill[─](#444444)([❰](#444444) $docker_context$git_branch$git_status$git_metrics[❱](#444444))[─](#444444)
+[╰─❱](#444444)[🭮](fg:#444444)$directory[▌](fg:#444444)$character
+"""
+
+right_format = ""
+
+[fill]
+style = '#444444'
+symbol = '─'
+
+[directory]
+format = '[$path](fg:#ffffff bg:#444444)'
+truncate_to_repo = true
+truncation_length = 8
+truncation_symbol = '❰/'
+
+[character]
+format         = "$symbol"
+success_symbol  = "[ I ](bold fg:#000000 bg:#00d85f)[🭬](#00d85f)"
+error_symbol  = "[ E ](bold fg:#000000 bg:#ff0033)[🭬](#ff0033)"
+vimcmd_symbol  = "[ N ](bold fg:#000000 bg:#00d4ff)[🭬](fg:#00d4ff)"
+
+[shlvl]
+disabled = false
+format = '[$symbol$shlvl](#22eeff) '
+symbol = ""
+threshold = 3
+
+# Env
+
+[package]
+format = 'at [$version](208 bold) '
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = " " 
+truncation_length = 4
+truncation_symbol = '…'
+ignore_branches = []
+
+[git_metrics]
+format = '([▴$added]($added_style))([▿$deleted]($deleted_style)) '
+added_style = 'italic dimmed green'
+deleted_style = 'italic dimmed red'
+ignore_submodules = true
+disabled = false
+
+[git_status]
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count} '
+behind = '⇣${count}'
+
+[docker_context]
+symbol = "◧ "
+format = " docker [$symbol$context]($style)"
+
+# Languages
+
+[deno]
+format = " [deno](italic) [∫ $version](green bold)"
+version_format = "${raw}"
+
+[lua]
+format = "via [lua $version]($style) "
+version_format = "${raw}"
+style = "bold blue"
+
+[nodejs]
+format = "via [node ($version)](bold bright-green) "
+version_format = "${raw}"
+detect_files = ["package-lock.json", "yarn.lock"]
+detect_folders = ["node_modules"]
+detect_extensions = []
+
+[bun]
+format = "via [bun ($version)](bold #f9ea88) "
+version_format = "${raw}"
+
+[python]
+format = " [py](italic) [${symbol}${version}]($style)"
+symbol = "[⌉](bold bright-blue)⌊ "
+version_format = "${raw}"
+style = "bold bright-yellow"
+
+[ruby]
+format = " [rb](italic) [${symbol}${version}]($style)"
+symbol = "◆ "
+version_format = "${raw}"
+style = "bold red"
+
+[rust]
+format = "via [rust $version]($style) "
+version_format = "${raw}"
+style = "bold #ff6030"
+
+[swift]
+format = " [sw](italic) [${symbol}${version}]($style)"
+symbol = "◁ "
+style = "bold bright-red"
+version_format = "${raw}"
+
+[aws]
+disabled = true
+format = " [aws](italic) [$symbol $profile $region]($style)"
+style = "bold blue"
+symbol = "▲ "
+
+[buf]
+symbol = "■ "
+format = " [buf](italic) [$symbol $version $buf_version]($style)"
+
+[c]
+symbol = "ℂ "
+format = " [$symbol($version(-$name))]($style)"
+
+[cpp]
+symbol = "ℂ "
+format = " [$symbol($version(-$name))]($style)"
+
+[conda]
+symbol = "◯ "
+format = " conda [$symbol$environment]($style)"
+
+[pixi]
+symbol = "■ "
+format = " pixi [$symbol$version ($environment )]($style)"
+
+[dart]
+symbol = "◁◅ "
+format = " dart [$symbol($version )]($style)"
+
+[elixir]
+symbol = "△ "
+format = " exs [$symbol $version OTP $otp_version ]($style)"
+
+[elm]
+symbol = "◩ "
+format = " elm [$symbol($version )]($style)"
+
+[golang]
+symbol = "∩ "
+format = " go [$symbol($version )]($style)"
+
+[haskell]
+symbol = "❯λ "
+format = " hs [$symbol($version )]($style)"
+
+[java]
+symbol = "∪ "
+format = " java [${symbol}(${version} )]($style)"
+
+[julia]
+symbol = "◎ "
+format = " jl [$symbol($version )]($style)"
+
+[nim]
+symbol = "▴▲▴ "
+format = " nim [$symbol($version )]($style)"
+
+[nix_shell]
+style = 'bold italic dimmed blue'
+symbol = '✶'
+format = '[$symbol nix⎪$state⎪]($style) [$name](italic dimmed white)'
+impure_msg = '[⌽](bold dimmed red)'
+pure_msg = '[⌾](bold dimmed green)'
+unknown_msg = '[◌](bold dimmed yellow)'
+
+[spack]
+symbol = "◇ "
+format = " spack [$symbol$environment]($style)"
