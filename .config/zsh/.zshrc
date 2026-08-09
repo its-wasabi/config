@@ -2,7 +2,6 @@
 	echo;
 	clear;
 	uwufetch;
-	echo;
 }
 
 export MANPAGER='nvim +Man!'
@@ -15,7 +14,6 @@ unsetopt BEEP
 setopt AUTO_CD
 setopt EXTENDED_GLOB
 setopt NO_FLOW_CONTROL 
-setopt PROMPT_SUBST
 
 HISTFILE="$HOME/.config/zsh/history"
 HISTSIZE=10000
@@ -26,8 +24,6 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 setopt SHARE_HISTORY
-
-zmodload zsh/datetime
 
 zstyle :compinstall filename "$HOME/.config/zsh/.zshrc"
 autoload -Uz compinit && compinit
@@ -137,175 +133,15 @@ zle -N _zle_git_commit
 bindkey -M viins '^x^a' _zle_git_add       
 bindkey -M viins '^x^m' _zle_git_commit  
 
-zle-line-init() {
-  zle -K viins
-  PROMPT_VIMODE=""
-  zle reset-prompt
-}
-zle -N zle-line-init
-
-zle-keymap-select() {
-  case $KEYMAP in
-    vicmd)      PROMPT_VIMODE="%F{yellow}❮N❯%f" ;;
-    viins|main) PROMPT_VIMODE="" ;;
-  esac
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-zle-line-finish() { zle -K viins }
-zle -N zle-line-finish
-
 # theme colors / config
-_PC_BG="#181818"
-_PC_MARKER="#444444"
-_PC_TIME="cyan"
-_PC_SHLVL="blue"
-_PC_SSH="#00FF00"
-_PC_GIT="#FD0D08"
-_PC_CARGO="#ED4316"
-_PC_ACC="magenta"
-_SEP="]["
-# each function prints its piece or nothing; consumed via $(...) in PROMPT
+# _PC_BG="#181818"
+# _PC_MARKER="#444444"
+# _PC_TIME="cyan"
+# _PC_SHLVL="blue"
+# _PC_SSH="#00FF00"
+# _PC_GIT="#FD0D08"
+# _PC_CARGO="#ED4316"
+# _PC_ACC="magenta"
+# _SEP="]["
 
-_p_root() {
-  (( EUID == 0 )) && echo -n "%{%F{red}%}❰ROOT❱%{%f%} "
-}
-
-_p_status() {
-  if (( EXIT_CODE == 0 )); then
-    echo -n "%{%F{green}%}OK%{%f%}"
-  elif (( EXIT_CODE > 128 )); then
-    echo -n "%{%F{red}%}SIG-$(( EXIT_CODE - 128 ))%{%f%}"
-  else
-    echo -n "%{%F{red}%}${EXIT_CODE}%{%f%}"
-  fi
-  (( CMD_TIME > 0.5 )) && \
-    echo -n "%{%F{${_PC_ACC}}%}~%{%F{${_PC_TIME}}%}${CMD_TIME}s%{%f%}"
-}
-
-_p_shlvl() {
-  (( SHLVL > 1 )) && \
-    echo -n "%{%F{${_PC_ACC}}%}${_SEP}%{%F{${_PC_SHLVL}}%}${SHLVL}%{%f%}"
-}
-
-_p_ssh() {
-  [[ -n $SSH_CONNECTION ]] && \
-    echo -n "%{%F{${_PC_ACC}}%}${_SEP}%{%F{${_PC_SSH}}%}SSH%{%f%}"
-}
-
-_p_git() {
-  local ref dirty
-  ref=$(git symbolic-ref --quiet --short HEAD 2>/dev/null \
-     || git rev-parse --abbrev-ref HEAD 2>/dev/null \
-     || git describe --tags --dirty --always 2>/dev/null) || return
-  [[ -n $(git status --porcelain 2>/dev/null) ]] && dirty="*"
-  echo -n "%{%F{${_PC_ACC}}%}${_SEP}%{%F{${_PC_GIT}}%}${ref}${dirty}%{%f%}"
-}
-
-_p_cargo() {
-  # cache per-directory to avoid running cargo on every prompt redraw
-  [[ $PWD == $_CARGO_LAST_PWD ]] && { echo -n "$_CARGO_INFO"; return }
-
-  local toml name version key value in_package=0 info=""
-
-  toml=$(cargo locate-project --message-format=plain 2>/dev/null) || {
-    _CARGO_LAST_PWD=$PWD
-    _CARGO_INFO=""
-    return
-  }
-
-  # parse only the [package] section so we don't grab name/version from
-  # [[bin]], [dependencies], etc.
-  while IFS='=' read -r key value; do
-    key="${${key##[[:space:]]#}%%[[:space:]]#}"
-    value="${${${value//\"/}##[[:space:]]#}%%[[:space:]]#}"
-    [[ $key == '[package]' ]] && { in_package=1; continue }
-    [[ $key == '['*']'    ]] && in_package=0
-    (( in_package )) || continue
-    case $key in
-      name)    name=$value    ;;
-      version) version=$value ;;
-    esac
-    [[ -n $name && -n $version ]] && break
-  done < "$toml"
-
-  [[ -z $name ]] && name="${toml:h:t}"
-  info="%{%F{${_PC_ACC}}%}${_SEP}%{%F{${_PC_CARGO}}%}${name}"
-  [[ -n $version ]] && info+="-${version}"
-  info+="%{%f%}"
-
-  _CARGO_LAST_PWD=$PWD
-  _CARGO_INFO=$info
-  echo -n "$info"
-}
-
-_p_head() {
-	echo -n "%{%B%F{${_PC_MARKER}}%}%{%K{${_PC_MARKER}}%K{${_PC_BG}}%}%{%F{${_PC_ACC}}%}%{%F{${_PC_MARKER}}%}"
-}
-
-# shared PS2 (same across all profiles)
-_PS2="%k%f%B%F{${_PC_MARKER}}█%K{${_PC_BG}}%F{blue} "
-
-# ── profiles ─────────────────────────────────────────────────────────────────
-
-_prompt_main() {
-  PROMPT="%k%f%B$(_p_head) - $(_p_root)%F{${_PC_ACC}}❰$(_p_status)$(_p_shlvl)$(_p_ssh)$(_p_git)$(_p_cargo)%F{${_PC_ACC}}❱%F{${_PC_MARKER}} %F{${_PC_ACC}}❰%~❱%F{blue} "
-  RPROMPT="%F{${_PC_ACC}}%f"
-  PS2=$_PS2
-}
-
-_prompt_full() {
-  PROMPT="%k%f%B$(_p_head) - $(_p_root)%F{${_PC_ACC}}❰%~❱%F{blue} "
-  RPROMPT="%F{${_PC_ACC}}❰$(_p_status)$(_p_shlvl)$(_p_ssh)$(_p_git)$(_p_cargo)%F{${_PC_ACC}}❱"
-  PS2=$_PS2
-}
-
-_prompt_min() {
-  PROMPT="%f%B%F{${_PC_ACC}}<%F{blue}%n%F{${_PC_ACC}}@%F{blue}%m%F{${_PC_ACC}}><%F{blue}%~%F{${_PC_ACC}}>%F{blue} "
-  RPROMPT=""
-  PS2=$_PS2
-}
-
-typeset -ga _PROMPT_PROFILES=(main min full)
-typeset -gi _PROMPT_IDX=1
-typeset -g  PROMPT_PROFILE=${_PROMPT_PROFILES[1]}
-
-_prompt_apply() {
-  case $PROMPT_PROFILE in
-    main) _prompt_main ;;
-    full) _prompt_full ;;
-    min)  _prompt_min  ;;
-  esac
-}
-
-prompt_switch() {
-  (( _PROMPT_IDX = _PROMPT_IDX % $#_PROMPT_PROFILES + 1 ))
-  PROMPT_PROFILE=${_PROMPT_PROFILES[$_PROMPT_IDX]}
-  _prompt_apply
-  zle reset-prompt
-}
-zle -N prompt_switch
-bindkey '^@' prompt_switch
-
-typeset -g CMD_TIME=0
-typeset -g CMD_START=""
-
-preexec() {
-  print -n '\e[0m'
-
-  CMD_START=$EPOCHREALTIME
-}
-
-precmd() {
-  EXIT_CODE=$?
-  if [[ -n $CMD_START ]]; then
-    CMD_TIME=$(printf '%.3f' $(( EPOCHREALTIME - CMD_START )))
-  else
-    CMD_TIME=0
-  fi
-  CMD_START=""
-  _prompt_apply
-}
-
-eval $(starship init zsh)
+eval "$(starship init zsh)"
