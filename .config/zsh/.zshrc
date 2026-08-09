@@ -1,8 +1,14 @@
-(( EUID != 0 && SHLVL < 3 )) && { uwufetch; echo }
+(( EUID != 0 && SHLVL < 3 )) && { 
+	echo;
+	clear;
+	uwufetch;
+	echo;
+}
 
 export MANPAGER='nvim +Man!'
 
 [[ -f "$HOME/.ghcup/env" ]] && source "$HOME/.ghcup/env"
+
 
 unsetopt BEEP
 
@@ -53,8 +59,11 @@ alias c=clear
 # editors / tools
 alias v=nvim
 alias vim=nvim
-alias rd=radare2
+
 alias co=cargo
+alias coc='cargo check'
+alias cob='cargo build'
+alias cor='cargo run'
 
 # launch / exit
 alias h=hyprland
@@ -77,6 +86,34 @@ alias myip='curl -s ifconfig.me; echo'
 # misc
 alias idk='echo "me too bro me too (T^T)"'
 alias snote='hyprctl notify -1 999999999 "rgb(ffffff)"'
+
+steam() {
+	echo "RUN STEAM"
+
+    local w h res
+    
+    # 1. Query Niri 
+    if command -v niri >/dev/null 2>&1; then
+        res=$(niri msg outputs | awk '/Logical size:/ {print $3; exit}')
+        w=${res%x*}
+        h=${res#*x}
+    fi
+
+    # 2. XWayland Fallback
+    if [[ -z "$w" || -z "$h" ]] && command -v xrandr >/dev/null 2>&1; then
+        res=$(xrandr --current | awk '/\*/ {print $1; exit}')
+        w=${res%x*}
+        h=${res#*x}
+    fi
+
+    # 3. Failsafe Defaults 
+    w=${w:-2560}
+    h=${h:-1440}
+
+    echo "Starting Steam in Gamescope (${w}x${h})..."
+
+    env XDG_CURRENT_DESKTOP=X-Generic gamescope -e -w "$w" -h "$h" -- /usr/bin/steam "$@" >/dev/null 2>&1 &!
+}
 
 command_not_found_handler() {
   printf '\e[1;31m❰COMMAND NOT FOUND: \e[38;5;4m%s\e[1;31m❱\e[0m\n' "$1"
@@ -270,3 +307,5 @@ precmd() {
   CMD_START=""
   _prompt_apply
 }
+
+eval $(starship init zsh)
