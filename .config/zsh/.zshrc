@@ -1,14 +1,3 @@
-(( EUID != 0 && SHLVL < 3 )) && { 
-	echo;
-	clear;
-	uwufetch;
-}
-
-export MANPAGER='nvim +Man!'
-
-[[ -f "$HOME/.ghcup/env" ]] && source "$HOME/.ghcup/env"
-
-
 unsetopt BEEP
 
 setopt AUTO_CD
@@ -133,15 +122,10 @@ zle -N _zle_git_commit
 bindkey -M viins '^x^a' _zle_git_add       
 bindkey -M viins '^x^m' _zle_git_commit  
 
-# theme colors / config
-# _PC_BG="#181818"
-# _PC_MARKER="#444444"
-# _PC_TIME="cyan"
-# _PC_SHLVL="blue"
-# _PC_SSH="#00FF00"
-# _PC_GIT="#FD0D08"
-# _PC_CARGO="#ED4316"
-# _PC_ACC="magenta"
-# _SEP="]["
+(( EUID != 0 && SHLVL < 3 )) && { 
+	echo;
+	clear;
+	uwufetch;
+}
 
 eval "$(starship init zsh)"
