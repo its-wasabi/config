@@ -71,7 +71,7 @@ c.downloads.open_dispatcher = "none"
 ###############
 # Global
 c.colors.webpage.preferred_color_scheme = "dark"
-c.scrolling.smooth = True
+c.scrolling.smooth = False
 c.completion.height = "18%"
 
 # Tabs
@@ -91,11 +91,13 @@ config.bind("<Ctrl-u>", "cmd-run-with-count 15 scroll up")
 config.bind("<Alt-h>", "back")
 config.bind("<Alt-l>", "forward")
 
+config.unbind("d")
+
 c.aliases = {
+    "q": "tab-close",
     "w": "session-save",
     "wa": "session-save",
-    "q": "close",
-    "qa": "quit",
+    "qa": "close",
     "wq": "quit --save",
     "wqa": "quit --save",
 }
@@ -366,7 +368,7 @@ c.colors.webpage.darkmode.algorithm = 'lightness-hsl'
 # `colors.webpage.darkmode.policy.images` to `never`.  - "With selective
 # image inversion": qutebrowser default settings.
 # Type: Bool
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 
 # Which images to apply dark mode to.
 # Type: String
@@ -375,4 +377,4 @@ c.colors.webpage.darkmode.enabled = True
 # - never: Never apply dark mode filter to any images.
 # - smart: Apply dark mode based on image content. Not available with Qt 5.15.0.
 # - smart-simple: On QtWebEngine 6.6, use a simpler algorithm for smart mode (based on numbers of colors and transparency), rather than an ML-based model. Same as 'smart' on older QtWebEnigne versions.
-c.colors.webpage.darkmode.policy.images = "smart"
+c.colors.webpage.darkmode.policy.images = "never"
