@@ -276,6 +276,7 @@ layout { // Set gaps around windows in logical pixels.
         color "#0007"
     }
 
+
     // Struts shrink the area occupied by windows, similarly to layer-shell panels.
     // You can think of them as a kind of outer gaps. They are set in logical pixels.
     // Left and right struts will cause the next window to the side to always be visible.
@@ -287,6 +288,13 @@ layout { // Set gaps around windows in logical pixels.
         top 0
         bottom 0
     }
+}
+
+blur {
+    passes 2
+    offset 3
+    noise 0.1
+    saturation 0.8
 }
 
 recent-windows {
