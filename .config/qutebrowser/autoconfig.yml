@@ -7,14 +7,24 @@
 config_version: 2
 settings:
   content.javascript.clipboard:
+    https://chat.qwen.ai: access-paste
     https://chatgpt.com: access-paste
     https://claude.ai: access-paste
     https://colordesigner.io: access-paste
     https://gemini.google.com: access-paste
     https://github.com: access-paste
     https://rustup.rs: access-paste
+    https://starship.rs: access-paste
     https://www.perplexity.ai: access-paste
+  content.local_content_can_access_file_urls:
+    global: true
   fonts.default_family:
     global: Monocraft
   fonts.default_size:
     global: 11px
+  tabs.title.format:
+    global: null
+  tabs.title.format_pinned:
+    global: null
+  tabs.width:
+    global: 26

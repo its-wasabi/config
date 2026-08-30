@@ -74,12 +74,11 @@ c.colors.webpage.preferred_color_scheme = "dark"
 c.scrolling.smooth = False
 c.completion.height = "18%"
 
-# Tabs
 c.tabs.position = "left"
-c.tabs.width = 180
-
-config.set("tabs.title.format", "{index}:{current_title}")
-config.set("tabs.title.format_pinned", "{current_title}")
+c.tabs.width = 26
+c.tabs.title.format = ""
+c.tabs.title.format_pinned = ""
+config.bind('tt', 'toggle-tabs')
 
 ############
 # Bindings #
@@ -100,6 +99,7 @@ c.aliases = {
     "qa": "close",
     "wq": "quit --save",
     "wqa": "quit --save",
+    "toggle-tabs": 'config-cycle tabs.width 200 26 ;; config-cycle tabs.title.format "{index}:{current_title}" "" ;; config-cycle tabs.title.format_pinned "{current_title}" ""'
 }
 
 # Tabs
