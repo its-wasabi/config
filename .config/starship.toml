@@ -8,8 +8,8 @@ $shlvl$package\
 $deno$bun$nodejs$lua$python$ruby$rust$swift$aws$buf$c$cpp$conda$pixi$dart$elixier$elm$golang$haskell$java$julia$nim$nix_shell$spack\
 [❱](dark_gray))$fill[─](dark_gray)\
 ([❰](dark_gray) \
-$docker_context$git_branch$git_metrics\
-[❱](dark_gray))[─](dark_gray)
+($docker_context)($git_branch)($git_metrics)\
+[❱](dark_gray))[─╴](dark_gray)
 [╰─(❰$cmd_duration)❱](dark_gray)\
 $directory$character
 """
@@ -73,7 +73,7 @@ format = "[$duration](neon_cyan)"
 
 [shlvl]
 disabled = false
-format = '[$symbol$shlvl](bold neon_cyan) '
+format = '[deepth](gray) [$symbol$shlvl](bold neon_cyan) '
 symbol = ""
 threshold = 3
 
@@ -85,12 +85,12 @@ format = '[$symbol$branch(:$remote_branch)]($style) '
 symbol = " " 
 style = "bold neon_magenta"
 truncation_length = 6
-truncation_symbol = '…'
+truncation_symbol = '⏵'
 # only_attached = true
 ignore_branches = []
 
 [git_metrics]
-format = '([▴$added]($added_style))([▿$deleted]($deleted_style)) '
+format = '([▴$added]($added_style) )([▿$deleted]($deleted_style) )'
 added_style = 'italic dimmed green'
 deleted_style = 'italic dimmed red'
 ignore_submodules = true
