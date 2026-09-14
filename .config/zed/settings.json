@@ -1,0 +1,44 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "project_panel": {
+    "folder_indicator": "icon",
+    "file_icons": true,
+    "entry_spacing": "comfortable",
+    "dock": "left"
+  },
+  "proxy": "",
+  "minimap": {
+    "thumb": "always",
+    "show": "auto"
+  },
+  "window_decorations": "server",
+  "rounded_selection": false,
+  "default_open_behavior": "new_window",
+  "ui_font_weight": 400.0,
+  "ui_font_family": "Monocraft",
+  "buffer_font_weight": 400.0,
+  "buffer_font_family": "Iosevka Code",
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "vim_mode": true,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Datapack Icons",
+    "dark": "Datapack Icons"
+  },
+  "ui_font_size": 14.0,
+  "buffer_font_size": 12.0,
+  "theme": {
+    "mode": "dark",
+    "light": "GitHub Light High Contrast",
+    "dark": "Vercel Dark",
+  },
+}
