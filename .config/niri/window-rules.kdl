@@ -4,6 +4,7 @@ window-rule {
 	match app-id="code"
 	match app-id="^editor$" 
 	// TODO: Check if that works
+	// FIX: That doesn't work
 	match app-id="^Minecraft*$"
 
 	open-maximized true

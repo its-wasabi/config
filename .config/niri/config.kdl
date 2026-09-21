@@ -291,7 +291,7 @@ layout { // Set gaps around windows in logical pixels.
 }
 
 blur {
-    passes 2
+    passes 1
     offset 3
     noise 0.1
     saturation 0.8

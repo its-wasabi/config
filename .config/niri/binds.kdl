@@ -42,7 +42,7 @@ binds {
     Mod+Tab repeat=false { toggle-overview; }
 
 
-    Mod+Shift+E  { spawn "~/.local/bin/ch-wallpaper.sh"; }
+    Mod+Shift+E  { spawn-sh "~/.local/bin/ch-wallpaper.sh"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
