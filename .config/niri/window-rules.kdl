@@ -3,9 +3,6 @@ window-rule {
 	match app-id="firefox"
 	match app-id="code"
 	match app-id="^editor$" 
-	// TODO: Check if that works
-	// FIX: That doesn't work
-	match app-id="^Minecraft*$"
 
 	open-maximized true
 }
@@ -13,7 +10,6 @@ window-rule {
 window-rule {
     match app-id="^kitty$"
 	match app-id="^editor$" 
-	match is-active=false app-id="^Spotify$"
     background-effect {
         blur true
     }
@@ -22,6 +18,17 @@ window-rule {
 window-rule {
 	match is-active=false app-id="^Spotify$"
 	opacity 0.84
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match is-floating=false
+    
+    shadow {
+        off
+    }
 }
 
 window-rule {
@@ -29,3 +36,8 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    background-effect {
+        xray false
+    }
+}
