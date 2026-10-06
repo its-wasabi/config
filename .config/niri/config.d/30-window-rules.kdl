@@ -1,0 +1,59 @@
+window-rule {
+    clip-to-geometry true
+    background-effect {
+        blur true
+		xray false
+    }
+}
+
+// Dim unfocused windows slightly for visual hierarchy.
+window-rule {
+    match is-active=false
+    opacity 0.9
+}
+
+window-rule {
+	match app-id="qutebrowser"
+	match app-id="firefox"
+	match app-id="code"
+	match app-id="^editor$" 
+
+	open-maximized true
+}
+
+// Gaming surfaces: avoid client clipping so fullscreen games remain eligible
+// for direct scanout. Keep the global rounded/clipped behavior for normal apps.
+window-rule {
+    match app-id=r#"^(gamescope|steam_app_[0-9]+|dota2|lutris|net\.lutris\..*|heroic|com\.heroicgameslauncher\.hgl|org\.prismlauncher\.PrismLauncher|minecraft|wine|wine64)$"#
+
+    geometry-corner-radius 0
+    clip-to-geometry false
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    open-floating true
+    open-focused false
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+window-rule {
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// KDE's XEmbed→SNI bridge exposes a transient X11 window during tray watcher
+// restarts. Keep it floating, transparent and unfocused so it never flashes.
+window-rule {
+    match app-id=r#"^xembedsniproxy$"#
+    open-floating true
+    open-focused false
+    opacity 0.0
+    focus-ring { off; }
+    border { off; }
+    shadow { off; }
+}

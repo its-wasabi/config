@@ -1,0 +1,70 @@
+recent-windows {
+	off
+}
+
+layout {
+	gaps 0
+	background-color "transparent"
+
+    // When focusing a column that's off-screen, how should the view scroll?
+    //   "never"       — keep the focused column at the left or right edge (default)
+    //   "on-overflow" — center only if both the old and new column don't fit on screen
+    //   "always"      — always center the focused column
+    center-focused-column "never"
+
+    // Keep a lone column from hugging the left edge on empty workspaces.
+    always-center-single-column
+
+    default-column-width {
+        proportion 0.5
+    }
+
+    focus-ring {
+        off
+        width 1
+        active-color   "#808080"
+        inactive-color "#505050"
+    }
+
+    border {
+        off
+        width 4
+        active-color   "#707070"
+        inactive-color "#d0d0d0"
+        urgent-color   "#cc4444"
+    }
+
+	shadow {
+		on
+		softness 30
+		spread 5
+		offset x=0 y=0
+		color "#0007"
+	}
+}
+
+window-rule {
+    match is-floating=false
+    
+    shadow {
+        off
+    }
+}
+
+blur {
+    passes 1
+    offset 3
+    noise 0.1
+    saturation 0.9
+}
+
+
+overview {
+    zoom 0.75
+    backdrop-color "#101010"
+
+    // Disable the shadow behind each workspace in the overview.
+    workspace-shadow {
+        off
+    }
+}

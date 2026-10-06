@@ -1,0 +1,10 @@
+// Export XDG_MENU_PREFIX into the systemd user session and rebuild the
+// sycoca database so KDE/Qt apps see the correct .desktop entries.
+spawn-at-startup "bash" "-c" "systemctl --user import-environment XDG_MENU_PREFIX && kbuildsycoca6"
+
+// ERROR: Causes memory leak ig - somehow
+// spawn-at-startup "xwayland-satellite" 
+
+spawn-at-startup "mako" 
+spawn-at-startup "~/.local/bin/nav-bar"
+spawn-at-startup "~/.local/bin/wallpaper"

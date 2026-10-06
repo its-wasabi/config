@@ -1,0 +1,44 @@
+input {
+	focus-follows-mouse
+
+	keyboard {
+		xkb {
+			layout "us"
+			options "fkeys:basic_13-24, caps:escape"
+		}
+
+        repeat-delay 250
+        repeat-rate 50
+	}
+
+    touchpad {
+        tap
+        tap-button-map "left-right-middle"
+    }
+
+	tablet {
+		// map-to-output "DP-2" // "HDMI-A-1" // "DP-2"
+		calibration-matrix 0.0 -1.0 1.0 1.0 0.0 0.0
+	}
+
+    mouse {
+        accel-profile "flat"
+        // Adjust pointer speed: -1.0 (slowest) … 0.0 (default) … 1.0 (fastest).
+        accel-speed 1.0
+    }
+
+    mod-key "Super"
+    mod-key-nested "Alt"
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+cursor {
+    xcursor-theme "capitaine-cursors-light"
+    xcursor-size 24
+    hide-when-typing
+}

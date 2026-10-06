@@ -1,8 +1,0 @@
-vsync = false
-
-no-multigrid = false
-title-hidden = true
-tabs = false
-
-[box-drawing]
-mode = "font-glyph"
