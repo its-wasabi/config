@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 1. Query Niri
+if command -v niri >/dev/null 2>&1; then
+	res=$(niri msg outputs | awk '/Logical size:/ {print $3; exit}')
+	w=${res%x*}
+	h=${res#*x}
+fi
+
+# 2. XWayland fallback
+if [[ -z "$w" || -z "$h" ]] && command -v xrandr >/dev/null 2>&1; then
+	res=$(xrandr --current | awk '/\*/ {print $1; exit}')
+	w=${res%x*}
+	h=${res#*x}
+fi
+
+# 3. Failsafe defaults
+w=${w:-2560}
+h=${h:-1440}
+
+echo "Gamescope steam (${w}x${h})"
+
+exec env XDG_CURRENT_DESKTOP=gamescope gamescope -f -e --adaptive-sync -W "$w" -H "$h" -- /usr/bin/steam -gamepadui -steamdeck "$@" 

@@ -1,0 +1,7 @@
+[user]
+	email = fasami0512@gmail.com
+	name = Fasamii
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
