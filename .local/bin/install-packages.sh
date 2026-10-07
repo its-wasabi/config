@@ -1,21 +1,25 @@
 #! /usr/bin/env bash
 
 PKGS=(
-	niri,
-	kitty,
-	neovim,
-	fish,
-	qutebrowser,
-	eza,
-	straship,
-)
+	niri
+	kitty
+	neovim
+	eza
+	fish
+	starship	
+	git
+	qutebrowser
 
-# ---------------[VERIFY ARGS]---------------
-if [[ -z "$1" ]]; then
-	echo -e "\x1b[48;5;196;38;5;0m[ INVALID ARGS ]\x1b[0m"
-	echo -e "\x1b[38;5;6mUsage:\x1b[38;5;2m $0 \x1b[38;5;5m<path to pkg file>\x1b[0m"
-	exit;
-fi
+	uwufetch
+
+	pipewire
+	pipewire-alsa
+	pipewire-pulse
+	pipewire-jack
+
+	rust
+	rust-src
+)
 
 # ---------------[REQUEST SUDO]---------------
 sudo -v
@@ -28,9 +32,9 @@ done 2> /dev/null &
 
 # ---------------[UPDATE]---------------
 echo -e "\x1b[48;5;6;38;5;0m[ Updating system ]\x1b[0m"
-sudo pacman -Syyu
+sudo pacman -Syyu --noconfirm;
 
 # ---------------[INSTALL]---------------
 echo -e "\x1b[48;5;6;38;5;0m[ Updating system ]\x1b[0m"
-sudo pacman -S --needed - "${PKGS[@]}";
+sudo pacman -S --noconfirm --needed "${PKGS[@]}";
 
