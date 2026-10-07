@@ -17,6 +17,8 @@ PKGS=(
 	pipewire-pulse
 	pipewire-jack
 
+	openssh
+
 	rust
 	rust-src
 )
