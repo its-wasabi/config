@@ -1,5 +1,15 @@
 #! /usr/bin/env bash
 
+PKGS=(
+	niri,
+	kitty,
+	neovim,
+	fish,
+	qutebrowser,
+	eza,
+	straship,
+)
+
 # ---------------[VERIFY ARGS]---------------
 if [[ -z "$1" ]]; then
 	echo -e "\x1b[48;5;196;38;5;0m[ INVALID ARGS ]\x1b[0m"
@@ -22,5 +32,5 @@ sudo pacman -Syyu
 
 # ---------------[INSTALL]---------------
 echo -e "\x1b[48;5;6;38;5;0m[ Updating system ]\x1b[0m"
-sudo pacman -S --needed - < "$1";
+sudo pacman -S --needed - "${PKGS[@]}";
 
