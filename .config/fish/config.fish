@@ -1,3 +1,13 @@
+fish_add_path ~/.local/bin
+
+function fish_greeting
+    if test (id -u) -ne 0; and test "$SHLVL" -lt 3
+        if command -v uwufetch &>/dev/null
+            uwufetch
+        end
+    end
+end
+
 if status is-interactive
     # Enable Vi key bindings
     fish_vi_key_bindings
@@ -8,13 +18,6 @@ if status is-interactive
 
     # No greeting
     set fish_greeting
-
-    # Run uwufetch on startup (not as root, and only in top-level shells)
-    if test (id -u) -ne 0; and test "$SHLVL" -lt 3
-        if command -v uwufetch &>/dev/null
-            uwufetch
-        end
-    end
 
     # Use starship prompt
     if command -v starship &>/dev/null
