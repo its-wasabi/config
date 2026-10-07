@@ -2,15 +2,23 @@
 
 PKGS=(
 	niri
+	wl-clipboard
+	bemenu-wayland
+
 	kitty
-	neovim
-	eza
 	fish
 	starship	
+	eza
+	uwufetch
+
 	git
+	btop
 	qutebrowser
 
-	uwufetch
+	neovim
+	ripgrep
+	tree-sitter-cli
+
 
 	pipewire
 	pipewire-alsa
@@ -21,6 +29,9 @@ PKGS=(
 
 	rust
 	rust-src
+
+	gamescope
+	steam
 )
 
 # ---------------[REQUEST SUDO]---------------
