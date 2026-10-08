@@ -19,11 +19,16 @@ PKGS=(
 	ripgrep
 	tree-sitter-cli
 
-
 	pipewire
 	pipewire-alsa
 	pipewire-pulse
 	pipewire-jack
+
+	unzip
+	7zip
+	unrar
+
+	npm
 
 	openssh
 
