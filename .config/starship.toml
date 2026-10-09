@@ -63,10 +63,12 @@ truncation_length = 8
 truncation_symbol = '❰/'
 
 [character]
-format         = "$symbol"
-success_symbol  = "[ I ](bold fg:#000000 bg:#00d85f)[🭬](#00d85f)"
-error_symbol  = "[ E ](bold fg:#000000 bg:#ff0033)[🭬](#ff0033)"
-vimcmd_symbol  = "[ N ](bold fg:#000000 bg:#00d4ff)[🭬](fg:#00d4ff)"
+format                = "$symbol"
+success_symbol        = "[ I ](bold fg:#000000 bg:#00d85f)[🭬](#00d85f)"
+error_symbol          = "[ E ](bold fg:#000000 bg:#ff0033)[🭬](#ff0033)"
+vimcmd_symbol         = "[ N ](bold fg:#000000 bg:#00d4ff)[🭬](fg:#00d4ff)"
+vimcmd_visual_symbol  = "[ V ](bold fg:#000000 bg:#fde309)[🭬](fg:#fde309)"
+vimcmd_replace_symbol = "[ R ](bold fg:#000000 bg:#ffb86c)[🭬](fg:#ffb86c)"
 
 [cmd_duration]
 format = "[$duration](neon_cyan)"
